@@ -1,0 +1,112 @@
+---
+title: "Projeto - Disciplina R (RStudio)"
+author: "Laura Evora"
+date: "31/05/2019"
+output: pdf_document
+---
+## Projeto - Disciplina R
+
+
+
+### Crescimento idependente da densidade
+
+
+
+
+##### Introdução
+
+Para a revolução científica foi importante adoção de um pensamento quantitativo e a ecologia emergiu desse contexto; e a estatística traz essa matemática fazendo com que haja uma melhor compreensão dessa ciência. O R é um ambiente de programação que através de conjunto de ferramentas fornece ao operador inúmeras facilidades, como manipulação de dados, cálculos e produção de gráficos. Vale ressaltar que o R é livre e se faz por contribuição espontânea de pessoas interessadas. Desse modo, os pesquisadores se utilizam dessas ferramentas para uma melhor e efetiva forma de trabalhar com seus dados. No trabalho presente utilizou-se do R para solucionar problemas de crescimento independente da densidade.	
+
+#### Requerimentos
+Não houve a necessidade de adição de pacotes, já que o pacote básico tinha todas as funções necessárias para a solução das questões.
+
+#### Desenvolvimento
+
+(a) Nos anos de 1996 a 2005, os tamanhos das populações de lírios são N = 150, 100, 125, 200, 225, 150, 100, 175, 100, 150. Faça um gráfico do tamanho da população versus tempo.
+
+Para um gráfico, precisamos do eixo x que conterá os anos compreendidos pelo estudo e do eixo y que apresentará os diferentes valores da população atingiu. No R utilizamos, para fazer um gráfico de pontos/linhas, a função plot e seus argumentos. Devemos atentar ao fato que os elementos que se encontraram nos argumentos deveram já terem sido denominados. A primeira coisa será denominar os elementos. 
+
+```{r eval=TRUE, echo=TRUE}
+N <- c(150, 100, 125, 200, 225, 150, 100, 175, 100, 150)
+Anos <- 1996:2005
+```
+
+Para todo conjunto de número, que posteriormente, formará um vetor ele deve ser colocado entre parênteses e antecedido da letra c minúscula, já que o Rstudio faz diferença entra maiúscula e minúscula.
+Com os elementos definidos, plotamos o gráfico
+
+```{r eval=TRUE, echo=TRUE}
+plot(Anos, N)
+```
+
+Precisa-se ficar atento que o primeiro argumento será referente ao eixo x e o segundo ao y.
+
+(b) Calcule R para cada ano; gráfico R versus tempo.
+Para calcularmos o R para cada ano, será utilizado a divisão do ano posterior com o ano anterior, para isso selecionares os segundo ao décimo (2:10) e dividiremos pelo primeiro ao nono (1:9). O resultado terá 9 elementos.
+
+```{r eval=TRUE, echo=TRUE}
+rates = N[2:10]/N[1:9]
+rates
+```
+
+Percebe-se que no conjunto proporções tem 9 componentes, já no conjunto Anos tem 10 elementos. Para formar um gráfico, há necessidade que haja a mesma quantidade de elementos nos objetos de comparação. Portanto, houve a exclusão do ano de 1996, já que não tinha dados do ano anterior para produzir o R referente a aquele ano.  Por isso foi denominado Anos’ para o período de 1997:2005. Foi pensado em assumir que a população se manteve de 1995-1996, portanto o R seria 1. Mas foi desconsiderado essa hipótese por ser melhor excluir um ano do que acrescentar um dado por suposições
+
+```{r eval=TRUE, echo=TRUE}
+R<- rates
+Anoss<- 1997:2005
+plot(Anoss, R)
+```
+
+(c) Calcular as taxas médias de crescimento aritmético e geométrico desta população.
+Utilizou-se os símbolos:  M.A para média aritmética e M.G para média geométrica
+
+```{r eval=TRUE, echo=TRUE}
+t<- 9
+M.A <- sum(R)/t
+M.A
+M.G <- prod(R)^(1/t)
+M.G
+```
+
+(d) Com base na taxa média de crescimento apropriada, qual seria o tamanho esperado da população em 2025? Qual seria o tamanho estimado da população se você usasse a média inadequada? Não use simulação para isso.
+
+O tamanho da população com o crescimento apropriado será
+
+```{r eval=TRUE, echo=TRUE}
+PG2025 <- M.G^30*150
+PG2025
+```
+
+Já o tamanho da população com a média inadequada será:
+
+```{r eval=TRUE, echo=TRUE}
+PA2025 <- M.A^30*150
+PA2025
+```
+
+#### Respostas encontradas
+
+As respostas encontradas nos exercícios foram diversas:
+N dado no começo a qual foi a amostra, que é um subconjunto da população de interesse, no caso do exercício foram lírios;
+o período de anos quando coloca-se ano x: ano y, o qual ficou sempre no eixo y;
+a média aritmética e geométrica que são utilizadas de maneiras diferentes, tornam o olhar para aquele conjunto dado anteriormente diferente;
+As respostas usando as diferentes médias que produziram resultados tão diferente, já que o expoente, da potenciação encontrada na equação de projeção da população, é diferente.
+
+
+#### Dificuldades encontradas
+
+Senti uma grande dificuldade na parte de estatística, por isso penso se realmente é válido colocar o projeto com estatística para o final como nota da disciplina. Apesar que tive essa dificuldade maior, acredito, porque trabalhei com dados que não eram meus, além disso meu arcabouço na área de estatística é bem restrito. E o texto base, que tinham as questões, me confundiu mais do que ajudou. Em relação a programar no R tive dificuldades bem amenas e que foram resolvidas por consultas de tutoriais, mais questão de detalhes que não lembrava.Infelizmente, a má interação que eu tive com as questões propostas de crescimento independente da densidade tolheu a oportunidade de eu mostrar minhas habilidades adquiridas durante o curso.
+
+
+#### Bibliografia
+
+**A PRIMER of Ecology** with R. Edição de M. Henry H. Stevens. E-BOOK. (XVI, 388), online resource. (Use R!). ISBN 9780387898827. Disponível em: <http://dx.doi.org/10.1007/978-0-387-89882-7>. Acesso em: 30 mai. 2019.
+
+Batista, João L.F., Prado, Paulo I. e Oliveira, Alexandre A. (Eds.) 2009. **Introdução ao R - Uma Apostila on-line**. Disponível em: <http://ecologia.ib.usp.br/bie5782>. Acessado em: abr. 2019.
+
+GOTELLI, Nicholas J. **Princípios de estatística em ecologia**. Coautoria de Aaron M. Ellison. Porto Alegre, RS: Artmed, 2011. 527 p., il. ISBN 9788536324326 (broch.).
+
+Provete, Diogo B.; Silva, Fernando R. da; Souza, Thiago G. **Estatística aplicada à ecologia usando o R**. São José do Rio Preto, SP Abril, 2011. Disponível em: <https://cran.r-project.org/doc/contrib/Provete-Estatistica_aplicada.pdf>. Acessado em: 5 mai. 2019
+
+Tonhatti, Carlos H. 2019. **Curso R para iniciante**. Disponível em: <https://github.com/tomatebio/R_iniciante>. Acessado em abr. 2019
+
+Zurubabel. **R Markdown**. Canal do youtube. Disponível em: https://www.youtube.com/playlist?list=PL4OAe-tL47sZJVgc80pJazcy4iI59k5yy. Acessado em mai. 2019.
